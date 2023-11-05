@@ -1,4 +1,4 @@
-"""Sample API Client."""
+"""rtl_433 http ws API Client."""
 from __future__ import annotations
 
 import asyncio
@@ -25,7 +25,7 @@ class Rtl433ApiClientCommunicationError(
 
 
 class Rtl433ApiClient:
-    """Sample API Client."""
+    """rtl_433 http ws API Client."""
 
     def __init__(
         self,
