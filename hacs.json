@@ -1,7 +1,7 @@
 {
     "name": "RTL_433 Home Assistant Integration",
-    "filename": "integration_blueprint.zip",
-    "hide_default_branch": true,
+    "filename": "rtl_433_ha_http.zip",
+    "hide_default_branch": false,
     "homeassistant": "2023.9.0",
     "render_readme": true,
     "zip_release": true
