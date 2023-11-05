@@ -14,7 +14,7 @@ from .entity import rtl_433Entity
 ENTITY_DESCRIPTIONS = (
     BinarySensorEntityDescription(
         key="rtl_433_ha_http",
-        name="Integration For RTL_433,
+        name="Integration For RTL_433",
         device_class=BinarySensorDeviceClass.CONNECTIVITY,
     ),
 )
