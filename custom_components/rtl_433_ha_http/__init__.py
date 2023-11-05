@@ -1,7 +1,3 @@
-"""Custom integration to integrate rtl_433_ha_http with Home Assistant.
-
-For more details about this integration, please refer to
-https://github.com/catduckgnaf/rtl_433_ha_http"""
 from __future__ import annotations
 
 from homeassistant.config_entries import ConfigEntry
