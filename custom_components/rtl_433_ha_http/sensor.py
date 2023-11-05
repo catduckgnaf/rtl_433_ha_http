@@ -4,7 +4,7 @@ from __future__ import annotations
 from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
 
 from .const import DOMAIN
-from .coordinator import BlueprintDataUpdateCoordinator
+from .coordinator import Rtl433DataUpdateCoordinator
 from .entity import Rtl433Entity
 
 ENTITY_DESCRIPTIONS = (
@@ -33,7 +33,7 @@ class Rtl433Sensor(Rtl433Entity, SensorEntity):
 
     def __init__(
         self,
-        coordinator: BlueprintDataUpdateCoordinator,
+        coordinator: Rtl433DataUpdateCoordinator,
         entity_description: SensorEntityDescription,
     ) -> None:
         """Initialize the sensor class."""
