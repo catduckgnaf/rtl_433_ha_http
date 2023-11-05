@@ -70,9 +70,9 @@ class Rtl433ApiClient:
                     json=data,
                 )
                 if response.status in (401, 403):
-                    raise Rtl433ApiClientAuthenticationError(
+              #      raise Rtl433ApiClientAuthenticationError(
                         "Invalid credentials",
-                    )
+                    
                 response.raise_for_status()
                 return await response.json()
 
