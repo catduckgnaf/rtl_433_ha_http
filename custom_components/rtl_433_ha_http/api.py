@@ -18,10 +18,10 @@ class Rtl433ApiClientCommunicationError(
     """Exception to indicate a communication error."""
 
 
-class rtl433ApiClientAuthenticationError(
-    Rtl433ApiClientError
-):
-    """Exception to indicate an authentication error."""
+# class rtl433ApiClientAuthenticationError(
+  #  Rtl433ApiClientError
+#):
+#    """Exception to indicate an authentication error."""
 
 
 class Rtl433ApiClient:
