@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import socket
-
+import websocket-client
 import aiohttp
 import async_timeout
 
