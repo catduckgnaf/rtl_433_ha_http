@@ -2,12 +2,11 @@
 from __future__ import annotations
 
 import asyncio
-import websocket
 import json
-from time import sleep
-import websocket-client
 import aiohttp
 import async_timeout
+import websocket
+from time import sleep
 
 
 class Rtl433ApiClientError(Exception):
