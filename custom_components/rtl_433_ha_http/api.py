@@ -5,7 +5,7 @@ import asyncio
 import json
 import aiohttp
 import async_timeout
-import websocket
+import websocket-client
 from time import sleep
 
 
@@ -42,7 +42,7 @@ class Rtl433ApiClient:
     async def async_get_data(self) -> any:
         """Get data from the API."""
         return await self._api_wrapper(
-            method="get", url="https://jsonplaceholder.typicode.com/posts/1"
+            method="get", url="http://192.168.250.26:9443/wz"
         )
 
     async def async_set_title(self, value: str) -> any:
