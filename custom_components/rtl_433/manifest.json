@@ -1,5 +1,5 @@
 {
-  "domain": "rtl_433_ha_http",
+  "domain": "rtl_433",
   "name": "RTL_433 Home Assistant Integration",
   "codeowners": [
     "@catduckgnaf"

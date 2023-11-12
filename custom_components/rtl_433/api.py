@@ -5,7 +5,7 @@ import asyncio
 import json
 import aiohttp
 import async_timeout
-import websocket-client
+import websocket
 from time import sleep
 
 

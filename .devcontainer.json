@@ -1,5 +1,5 @@
 {
-    "name": "/catduckgnaf/rtl_433_ha_http",
+    "name": "catduckgnaf/rtl_433_ha_http",
     "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
     "postCreateCommand": "scripts/setup",
     "forwardPorts": [
