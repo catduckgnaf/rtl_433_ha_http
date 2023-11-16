@@ -49,12 +49,12 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 )
 
         return self.async_show_form(
-            step_id="user",
+            step_id="host",
             data_schema=vol.Schema(
                 {
                     vol.Required(
-                        HOST,
-                        default=(user_input or {}).get(HOST),
+                        host,
+                        default=(user_input or {}).get(host),
                     ): selector.TextSelector(
                         selector.TextSelectorConfig(
                             type=selector.TextSelectorType.TEXT
