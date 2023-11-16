@@ -53,8 +53,8 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=vol.Schema(
                 {
                     vol.Required(
-                        host,
-                        default=(user_input or {}).get(host),
+                        CONF_HOST,
+                        default=(user_input or {}).get(CONF_HOST),
                     ): selector.TextSelector(
                         selector.TextSelectorConfig(
                             type=selector.TextSelectorType.TEXT
