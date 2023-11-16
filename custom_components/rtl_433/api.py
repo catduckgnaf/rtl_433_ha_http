@@ -6,6 +6,7 @@ import json
 import aiohttp
 import async_timeout
 import websocket
+import socket
 from time import sleep
 
 
