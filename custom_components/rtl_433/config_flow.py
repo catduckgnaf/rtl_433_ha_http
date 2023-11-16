@@ -30,7 +30,7 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             try:
                 await self._test_credentials(
-                    host =user_input[CONF_HOST],
+                    host=user_input[CONF_HOST],
                     port=user_input[CONF_PORT],
                 )
             except Rtl433ApiClientAuthenticationError as exception:
