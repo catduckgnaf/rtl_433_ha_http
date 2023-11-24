@@ -17,7 +17,7 @@ ENTITY_DESCRIPTIONS = (
 
 
 async def async_setup_entry(hass, entry, async_add_devices):
-    """Set up the sensor platform."""
+    """Set up the switch platform."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
     async_add_devices(
         Rtl433Switch(
@@ -43,14 +43,20 @@ class Rtl433Switch(Rtl433Entity, SwitchEntity):
     @property
     def is_on(self) -> bool:
         """Return true if the switch is on."""
-        return self.coordinator.data.get("title", "") == "foo"
+        return self.coordinator.data.get("title", "") == "bar"
 
-    async def async_turn_on(self, **_: any) -> None:
+    async def async_turn_on(self, **kwargs: any) -> None:
         """Turn on the switch."""
-        await self.coordinator.api.async_set_title("bar")
-        await self.coordinator.async_request_refresh()
+        try:
+            await self.coordinator.api.async_set_title("bar")
+            await self.coordinator.async_request_refresh()
+        except Exception as e:
+            _LOGGER.error(f"Error turning on the switch: {e}")
 
-    async def async_turn_off(self, **_: any) -> None:
+    async def async_turn_off(self, **kwargs: any) -> None:
         """Turn off the switch."""
-        await self.coordinator.api.async_set_title("foo")
-        await self.coordinator.async_request_refresh()
+        try:
+            await self.coordinator.api.async_set_title("foo")
+            await self.coordinator.async_request_refresh()
+        except Exception as e:
+            _LOGGER.error(f"Error turning off the switch: {e}")
