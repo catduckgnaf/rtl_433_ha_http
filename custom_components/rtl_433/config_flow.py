@@ -34,13 +34,13 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     port=user_input[CONF_PORT],
                 )
             except Rtl433ApiClientAuthenticationError as exception:
-                LOGGER.warning(exception)
+                LOGGER.error("Authentication error: %s", exception)
                 _errors["base"] = "auth"
             except Rtl433ApiClientCommunicationError as exception:
-                LOGGER.error(exception)
+                LOGGER.error("Communication error: %s", exception)
                 _errors["base"] = "connection"
             except Rtl433ApiClientError as exception:
-                LOGGER.exception(exception)
+                LOGGER.exception("Unknown error: %s", exception)
                 _errors["base"] = "unknown"
             else:
                 return self.async_create_entry(
@@ -81,3 +81,7 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             session=async_create_clientsession(self.hass),
         )
         await client.async_get_data()
+
+    async def async_step_import(self, import_info):
+        """Handle import."""
+        return await self.async_step_user(user_input=import_info)

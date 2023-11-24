@@ -8,7 +8,7 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.const import DEVICE_CLASS_CONNECTIVITY
 
 from .const import DOMAIN
-from .coordinator import Rtl433UpdateCoordinator
+from .coordinator import Rtl433DataUpdateCoordinator  # Update this import
 from .entity import Rtl433Entity
 
 ENTITY_DESCRIPTIONS = (
@@ -32,7 +32,7 @@ class Rtl433BinarySensor(Rtl433Entity, BinarySensorDevice):
 
     def __init__(
         self,
-        coordinator: Rtl433UpdateCoordinator,
+        coordinator: Rtl433DataUpdateCoordinator,  # Update this type hint
         entity_description: BinarySensorEntityDescription,
     ) -> None:
         """Initialize the binary_sensor class."""
@@ -43,4 +43,4 @@ class Rtl433BinarySensor(Rtl433Entity, BinarySensorDevice):
     def is_on(self) -> bool:
         """Return true if the binary_sensor is on."""
         # Modify this condition according to your actual data
-        return self.coordinator.data.get("title", "") == "foo"
+        return
