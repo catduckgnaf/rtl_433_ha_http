@@ -1,5 +1,4 @@
-"""""Configuration flow for Rtl433."""
-
+"""Configuration flow for Rtl433."""
 from __future__ import annotations
 
 import voluptuous as vol
@@ -14,7 +13,7 @@ from .api import (
     Rtl433ApiClientCommunicationError,
     Rtl433ApiClientError,
 )
-from .const import DOMAIN
+from .const import DOMAIN, LOGGER
 
 class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for Rtl433."""
@@ -34,13 +33,13 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     port=user_input[CONF_PORT],
                 )
             except Rtl433ApiClientAuthenticationError as exception:
-                self.logger.warning(exception)
+                LOGGER.warning(exception)
                 _errors["base"] = "auth"
             except Rtl433ApiClientCommunicationError as exception:
-                self.logger.error(exception)
+                LOGGER.error(exception)
                 _errors["base"] = "connection"
             except Rtl433ApiClientError as exception:
-                self.logger.exception(exception)
+                LOGGER.exception(exception)
                 _errors["base"] = "unknown"
             else:
                 return self.async_create_entry(
@@ -54,13 +53,16 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 {
                     vol.Required(
                         CONF_HOST,
-                        default=user_input.get(CONF_HOST, ""),
+                        default="192.168.0.100",
                     ): selector.TextSelector(
                         selector.TextSelectorConfig(
                             type=selector.TextSelectorType.TEXT
                         ),
                     ),
-                    vol.Required(CONF_PORT): selector.TextSelector(
+                    vol.Required(
+                        CONF_PORT,
+                        default=9443,
+                    ): selector.TextSelector(
                         selector.TextSelectorConfig(
                             type=selector.TextSelectorType.INT
                         ),

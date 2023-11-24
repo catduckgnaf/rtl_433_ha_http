@@ -16,9 +16,8 @@ class Rtl433ApiClientError(Exception):
 class Rtl433ApiClientCommunicationError(Rtl433ApiClientError):
     """Exception to indicate a communication error."""
 
-# Uncomment if needed in the future
-# class Rtl433ApiClientAuthenticationError(Rtl433ApiClientError):
-#     """Exception to indicate an authentication error."""
+class Rtl433ApiClientAuthenticationError(Rtl433ApiClientError):
+    """Exception to indicate an authentication error."""
 
 class Rtl433ApiClient:
     """rtl_433 http ws API Client."""
@@ -29,7 +28,7 @@ class Rtl433ApiClient:
         port: int,
         session: aiohttp.ClientSession,
     ) -> None:
-        """Sample API Client."""
+        """Initialize the API client."""
         self._host = host
         self._port = port
         self._session = session
@@ -41,7 +40,7 @@ class Rtl433ApiClient:
         )
 
     async def async_set_title(self, value: str) -> any:
-        """Get data from the API."""
+        """Set title data in the API."""
         return await self._api_wrapper(
             method="patch",
             url=f"http://{self._host}:{self._port}/ws",
@@ -56,7 +55,7 @@ class Rtl433ApiClient:
         data: dict | None = None,
         headers: dict | None = None,
     ) -> any:
-        """Get information from the API."""
+        """Wrapper for making API requests."""
         try:
             async with async_timeout.timeout(10):
                 response = await self._session.request(
@@ -81,5 +80,5 @@ class Rtl433ApiClient:
             ) from exception
         except Exception as exception:  # pylint: disable=broad-except
             raise Rtl433ApiClientError(
-                "Something really wrong happened!"
+                "Something really wrong happened!",
             ) from exception
