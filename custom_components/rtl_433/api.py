@@ -1,24 +1,21 @@
 """rtl_433 Home Assistant http API Integration."""
 
+from __future__ import annotations
+
 import subprocess
 import sys
 import aiohttp
 import async_timeout
 import asyncio
 import socket
+import json
 import websocket
-import websocket_client
-
-from __future__ import annotations
-
 from datetime import timedelta
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.update_coordinator import (
-    DataUpdateCoordinator,
-    UpdateFailed,
-)
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.exceptions import ConfigEntryAuthFailed
 
 from .api import (
@@ -28,11 +25,6 @@ from .api import (
     Rtl433ApiClientError,
 )
 from .const import DOMAIN, LOGGER
-
-import websocket
-import json
-from time import sleep
-
 
 class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
@@ -209,15 +201,11 @@ class IntegrationRtl433ApiClient:
                     response.raise_for_status()
                 return await response.json()
 
-        except asyncio.TimeoutError as exception:
-            raise Rtl433ApiClientCommunicationError(
-                "Timeout error fetching information",
-            ) from exception
-        except (aiohttp.ClientError, socket.gaierror) as exception:
-            raise Rtl433ApiClientCommunicationError(
-                "Error fetching information",
-            ) from exception
-        except Exception as exception:  # pylint: disable=broad-except
-            raise Rtl433ApiClientError(
-                "Something really wrong happened!",
-            ) from exception
+        except KeyError:
+            # Ignore unknown message data and continue
+            pass
+
+        except ValueError as e:
+            # Warn on decoding errors
+            self.logger.warning(f'Event format not recognized: {e}')
+
