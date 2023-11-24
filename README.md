@@ -5,12 +5,11 @@
 [![License][license-shield]](LICENSE)
 
 ![Project Maintenance][maintenance-shield]
-[![BuyMeCoffee][buymecoffeebadge]][buymecoffee]
 
 [![Discord][discord-shield]][discord]
 [![Community Forum][forum-shield]][forum]
 
-_Integration to integrate with [integration_blueprint][integration_blueprint]._
+_Integration to integrate with [rtL_433[rtl_433]._
 
 **This integration will set up the following platforms.**
 
@@ -40,9 +39,6 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 
 ***
 
-[integration_blueprint]: https://github.com/ludeeus/integration_blueprint
-[commits-shield]: https://img.shields.io/github/commit-activity/y/ludeeus/integration_blueprint.svg?style=for-the-badge
-[commits]: https://github.com/ludeeus/integration_blueprint/commits/main
 [discord]: https://discord.gg/pTNXSTtD
 [discord-shield]: https://img.shields.io/discord/330944238910963714.svg?style=for-the-badge
 [exampleimg]: icon.png
