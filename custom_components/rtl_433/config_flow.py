@@ -1,4 +1,3 @@
-"""Adds config flow for Rtl433."""
 from __future__ import annotations
 
 import voluptuous as vol
@@ -13,8 +12,7 @@ from .api import (
     Rtl433ApiClientCommunicationError,
     Rtl433ApiClientError,
 )
-from .const import DOMAIN, LOGGER
-
+from .const import DOMAIN
 
 class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for Rtl433."""
@@ -34,13 +32,13 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     port=user_input[CONF_PORT],
                 )
             except Rtl433ApiClientAuthenticationError as exception:
-                LOGGER.warning(exception)
+                self.logger.warning(exception)
                 _errors["base"] = "auth"
             except Rtl433ApiClientCommunicationError as exception:
-                LOGGER.error(exception)
+                self.logger.error(exception)
                 _errors["base"] = "connection"
             except Rtl433ApiClientError as exception:
-                LOGGER.exception(exception)
+                self.logger.exception(exception)
                 _errors["base"] = "unknown"
             else:
                 return self.async_create_entry(
@@ -54,7 +52,7 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 {
                     vol.Required(
                         CONF_HOST,
-                        default=(user_input or {}).get(CONF_HOST),
+                        default=user_input.get(CONF_HOST, ""),
                     ): selector.TextSelector(
                         selector.TextSelectorConfig(
                             type=selector.TextSelectorType.TEXT

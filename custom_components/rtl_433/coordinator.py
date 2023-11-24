@@ -1,4 +1,3 @@
-"""DataUpdateCoordinator for rtl_433_ha_http."""
 from __future__ import annotations
 
 from datetime import timedelta
@@ -14,12 +13,11 @@ from homeassistant.exceptions import ConfigEntryAuthFailed
 from .api import (
     Rtl433ApiClient,
     Rtl433ApiClientAuthenticationError,
+    Rtl433ApiClientCommunicationError,
     Rtl433ApiClientError,
 )
 from .const import DOMAIN, LOGGER
 
-
-# https://developers.home-assistant.io/docs/integration_fetching_data#coordinated-single-api-poll-for-data-for-all-entities
 class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
 
@@ -44,6 +42,8 @@ class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
         try:
             return await self.client.async_get_data()
         except Rtl433ApiClientAuthenticationError as exception:
-            raise ConfigEntryAuthFailed(exception) from exception
+            raise ConfigEntryAuthFailed(f"Authentication error: {exception}") from exception
+        except Rtl433ApiClientCommunicationError as exception:
+            raise UpdateFailed(f"Communication error: {exception}") from exception
         except Rtl433ApiClientError as exception:
-            raise UpdateFailed(exception) from exception
+            raise UpdateFailed(f"API error: {exception}") from exception
