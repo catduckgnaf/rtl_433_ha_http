@@ -1,27 +1,26 @@
-"""rtl_433 Home Assistant http API Integration."""
+# Import necessary modules
+from datetime import timedelta
 import aiohttp
 import async_timeout
 import asyncio
-
-from homeassistant import config_entries
-from homeassistant.const import CONF_HOST, CONF_PORT
-from homeassistant.helpers import aiohttp_client
-from pkg_resources import EntryPoint
-
-from .api import (
-    Rtl433ApiClient,
-    Rtl433ApiClientAuthenticationError,
-    Rtl433ApiClientCommunicationError,
-    Rtl433ApiClientError,
-    Rtl433DataUpdateCoordinator,
-)
-from .const import DOMAIN, LOGGER
 import json
+import websocket
 
-class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+from homeassistant import config_entries, HomeAssistant
+from homeassistant.const import CONF_HOST, CONF_PORT
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.exceptions import ConfigEntryAuthFailed
+
+from .api import Rtl433ApiClient, Rtl433ApiClientAuthenticationError, Rtl433ApiClientCommunicationError, Rtl433ApiClientError
+
+from .const import DOMAIN, LOGGER
+
+# Define Rtl433DataUpdateCoordinator class
+class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
 
-    config_entry: ConfigEntry
+    config_entry: config_entries.ConfigEntry
 
     def __init__(
         self,
@@ -103,8 +102,9 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             # Warn on decoding errors
             self.logger.warning(f'Event format not recognized: {e}')
 
+# Import Rtl433ApiClient if it's in a different file
 
-# Usage example in your setup_entry method
+# config_flow.py
 class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for Rtl433."""
 
@@ -116,85 +116,13 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     ) -> config_entries.FlowResult:
         """Handle a flow initialized by the user."""
 
-        hass.data.setdefault(DOMAIN, {})
-        hass.data[DOMAIN][entry.entry_id] = coordinator = Rtl433DataUpdateCoordinator(
-            hass=hass,
-            client=IntegrationRtl433ApiClient(
-                host=entry.data[CONF_HOST],
-                port=entry.data[CONF_PORT],
-                session=async_get_clientsession(hass),
+        self.hass.data.setdefault(DOMAIN, {})
+        self.hass.data[DOMAIN][self.entry.entry_id] = coordinator = Rtl433DataUpdateCoordinator(
+            hass=self.hass,
+            client=Rtl433ApiClient(  # Import this or define it
+                host=self.entry.data[CONF_HOST],
+                port=self.entry.data[CONF_PORT],
+                session=async_get_clientsession(self.hass),
             ),
-            http_host=EntryPoint.data[CONF_HOST],  # Adjust as needed
-            http_port=entry.data[CONF_PORT],  # Adjust as needed
+
         )
-
-
-
-class Rtl433ApiClientError(Exception):
-    """Base exception for RTL_433 API Client errors."""
-
-
-class Rtl433ApiClientCommunicationError(Rtl433ApiClientError):
-    """Exception to indicate a communication error."""
-
-class Rtl433ApiClientAuthenticationError(Rtl433ApiClientError):
-    """Exception to indicate an authentication error."""
-
-class IntegrationRtl433ApiClient:
-    """rtl_433 http ws API Client."""
-
-    def __init__(
-        self,
-        host: str,
-        port: int,
-        session: aiohttp.ClientSession,
-    ) -> None:
-        """Initialize the API client."""
-        self._host = host
-        self._port = port
-        self._session = session
-
-    async def async_get_data(self) -> any:
-        """Get data from the API."""
-        return await self._api_wrapper(
-            method="get", url=f"http://{self._host}:{self._port}/ws"
-        )
-
-    async def async_set_title(self, value: str) -> any:
-        """Set title data in the API."""
-        return await self._api_wrapper(
-            method="patch",
-            url=f"http://{self._host}:{self._port}/ws",
-            data={"title": value},
-            headers={"Content-type": "application/json; charset=UTF-8"},
-        )
-
-    async def _api_wrapper(
-        self,
-        method: str,
-        url: str,
-        data: dict | None = None,
-        headers: dict | None = None,
-    ) -> any:
-        """Wrap API requests."""
-        try:
-            async with async_timeout.timeout(10):
-                response = await self._session.request(
-                    method=method,
-                    url=url,
-                    headers=headers,
-                    json=data,
-                )
-                if response.status in (401, 403):
-                    # Uncomment if needed in the future
-                    # raise Rtl433ApiClientAuthenticationError("Invalid credentials")
-                    response.raise_for_status()
-                return await response.json()
-
-        except KeyError:
-            # Ignore unknown message data and continue
-            pass
-
-        except ValueError as e:
-            # Warn on decoding errors
-            self.logger.warning(f'Event format not recognized: {e}')

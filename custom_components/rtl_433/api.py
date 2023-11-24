@@ -1,10 +1,9 @@
 """rtl_433 Home Assistant http API Integration."""
 
+import socket
 import aiohttp
 import async_timeout
 import asyncio
-import websocket_client
-
 
 class Rtl433ApiClientError(Exception):
     """Base exception for RTL_433 API Client errors."""
