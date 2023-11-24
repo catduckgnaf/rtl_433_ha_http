@@ -1,11 +1,14 @@
 """Sensor platform for rtl_433_ha_http."""
 from __future__ import annotations
+import logging
 
 from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
 
 from .const import DOMAIN
 from .coordinator import Rtl433DataUpdateCoordinator
 from .entity import Rtl433Entity
+
+_LOGGER = logging.getLogger(__name__)
 
 ENTITY_DESCRIPTIONS = (
     SensorEntityDescription(
@@ -44,3 +47,10 @@ class Rtl433Sensor(Rtl433Entity, SensorEntity):
     def native_value(self) -> str:
         """Return the native value of the sensor."""
         return self.coordinator.data.get("body")
+
+    async def async_update(self):
+        """Update the sensor."""
+        try:
+            await self.coordinator.async_request_refresh()
+        except Exception as e:
+            _LOGGER.error(f"Error updating sensor: {e}")
