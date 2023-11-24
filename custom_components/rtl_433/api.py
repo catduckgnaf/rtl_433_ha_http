@@ -7,8 +7,10 @@ import async_timeout
 import asyncio
 import socket
 
-# Install aiohttp using pip if it's not already installed
-subprocess.check_call([sys.executable, "-m", "pip", "install", "aiohttp"])
+# Install aiohttp and websocket-client using pip if they're not already installed
+subprocess.check_call([sys.executable, "-m", "pip", "install", "aiohttp", "websocket-client"])
+
+import websocket  # Add this import
 
 class Rtl433ApiClientError(Exception):
     """Base exception for RTL_433 API Client errors."""
