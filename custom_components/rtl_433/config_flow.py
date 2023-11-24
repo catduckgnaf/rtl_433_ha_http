@@ -6,14 +6,17 @@ import asyncio
 from homeassistant import config_entries
 from homeassistant.const import CONF_HOST, CONF_PORT
 from homeassistant.helpers import aiohttp_client
+from pkg_resources import EntryPoint
 
 from .api import (
     Rtl433ApiClient,
     Rtl433ApiClientAuthenticationError,
     Rtl433ApiClientCommunicationError,
     Rtl433ApiClientError,
+    Rtl433DataUpdateCoordinator,
 )
 from .const import DOMAIN, LOGGER
+import json
 
 class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Class to manage fetching data from the API."""
@@ -121,7 +124,7 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 port=entry.data[CONF_PORT],
                 session=async_get_clientsession(hass),
             ),
-            http_host=entry.data[CONF_HOST],  # Adjust as needed
+            http_host=EntryPoint.data[CONF_HOST],  # Adjust as needed
             http_port=entry.data[CONF_PORT],  # Adjust as needed
         )
 
