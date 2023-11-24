@@ -2,7 +2,7 @@ colorlog==6.7.0
 homeassistant>=2023.8.0
 pip>=21.0,<23.4
 ruff==0.1.6
-websocket-client
+websocket_client
 websockets
 aiohttp
 async-timeout

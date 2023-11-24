@@ -6,11 +6,13 @@ import aiohttp
 import async_timeout
 import asyncio
 import socket
-import websocket-client
+import websocket
+import websocket_client
 
 
 class Rtl433ApiClientError(Exception):
     """Base exception for RTL_433 API Client errors."""
+
 
 class Rtl433ApiClientCommunicationError(Rtl433ApiClientError):
     """Exception to indicate a communication error."""
