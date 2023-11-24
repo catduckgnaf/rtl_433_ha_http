@@ -6,10 +6,7 @@ import asyncio
 import socket
 
 # Install aiohttp using pip if it's not already installed
-try:
-    import aiohttp
-except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "aiohttp"])
+subprocess.check_call([sys.executable, "-m", "pip", "install", "aiohttp"])
 
 class Rtl433ApiClientError(Exception):
     """Base exception for RTL_433 API Client errors."""
