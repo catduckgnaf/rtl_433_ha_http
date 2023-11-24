@@ -34,19 +34,20 @@ class Rtl433ApiClient:
         self._session = session
 
     async def async_get_data(self) -> any:
-        """Get data from the API."""
+        """Gets data from the API."""
         return await self._api_wrapper(
             method="get", url=f"http://{self._host}:{self._port}/ws"
         )
 
-    async def async_set_title(self, value: str) -> any:
-        """Set title data in the API."""
-        return await self._api_wrapper(
-            method="patch",
-            url=f"http://{self._host}:{self._port}/ws",
-            data={"title": value},
-            headers={"Content-type": "application/json; charset=UTF-8"},
-        )
+async def async_set_title(self, value: str) -> any:
+    """Sets title data in the API."""
+    return await self._api_wrapper(
+        method="patch",
+        url=f"http://{self._host}:{self._port}/ws",
+        data={"title": value},
+        headers={"Content-type": "application/json; charset=UTF-8"},
+    )
+
 
     async def _api_wrapper(
         self,
