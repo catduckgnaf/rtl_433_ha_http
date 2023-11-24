@@ -9,6 +9,15 @@ from .api import IntegrationRtl433ApiClient
 from .const import DOMAIN
 from .coordinator import Rtl433DataUpdateCoordinator
 
+from homeassistant import core
+from homeassistant.exceptions import IntegrationError
+from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers.device_registry import DeviceEntryType
+from homeassistant.helpers.discovery import async_load_platform
+from homeassistant.helpers.entity import DeviceInfo
+from homeassistant.helpers.update_coordinator import (DataUpdateCoordinator,
+                                                      UpdateFailed)
+
 PLATFORMS = [
     Platform.SENSOR,
     Platform.BINARY_SENSOR,
