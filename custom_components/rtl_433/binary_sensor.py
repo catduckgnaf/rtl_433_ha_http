@@ -28,7 +28,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     )
 
 class Rtl433BinarySensor(Rtl433Entity, BinarySensorDevice):
-    """rtl_433_ha_http binary_sensor class."""
+    """rtl_433 binary_sensor class."""
 
     def __init__(
         self,
