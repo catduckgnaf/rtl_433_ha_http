@@ -10,7 +10,6 @@ import socket
 # Install aiohttp and websocket-client using pip if they're not already installed
 subprocess.check_call([sys.executable, "-m", "pip", "install", "aiohttp", "websocket-client"])
 
-import websocket  # Add this import
 
 class Rtl433ApiClientError(Exception):
     """Base exception for RTL_433 API Client errors."""
@@ -36,13 +35,13 @@ class Rtl433ApiClient:
         self._session = session
 
     async def async_get_data(self) -> any:
-        """Gets data from the API."""
+        """Get data from the API."""
         return await self._api_wrapper(
             method="get", url=f"http://{self._host}:{self._port}/ws"
         )
 
     async def async_set_title(self, value: str) -> any:
-        """Sets title data in the API."""
+        """Set title data in the API."""
         return await self._api_wrapper(
             method="patch",
             url=f"http://{self._host}:{self._port}/ws",
@@ -57,7 +56,7 @@ class Rtl433ApiClient:
         data: dict | None = None,
         headers: dict | None = None,
     ) -> any:
-        """Wrapper for making API requests."""
+        """Wrapper for making API request."""
         try:
             async with async_timeout.timeout(10):
                 response = await self._session.request(
