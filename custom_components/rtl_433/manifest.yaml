@@ -10,4 +10,4 @@ integration_type: hub
 iot_class: local_push
 issue_tracker: https://github.com/catduckgnaf/rtl_433_ha_http/issues
 requirements: []
-version: "0.0.3623"
+version: "0.0.3624"
