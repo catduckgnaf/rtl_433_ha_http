@@ -6,9 +6,6 @@ import aiohttp
 import async_timeout
 import asyncio
 import socket
-import websocket
-import json
-from time import sleep
 
 # Install aiohttp and websocket-client using pip if they're not already installed
 subprocess.check_call([sys.executable, "-m", "pip", "install", "aiohttp", "websocket-client"])
