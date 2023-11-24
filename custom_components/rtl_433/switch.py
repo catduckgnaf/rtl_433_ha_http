@@ -32,7 +32,7 @@ async def async_setup_entry(hass, entry, async_add_devices):
 
 
 class Rtl433Switch(Rtl433Entity, SwitchEntity):
-    """rtl_433_ha_http switch class."""
+    """rtl_433_ switch class."""
 
     def __init__(
         self,

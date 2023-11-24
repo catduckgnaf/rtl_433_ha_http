@@ -6,7 +6,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.exceptions import ConfigEntryAuthFailed
-from custom_components.rtl_433.api import IntegrationRtl433ApiClient
+from custom_components.rtl_433.api import Rtl433ApiClient
 import logging
 
 class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
@@ -17,7 +17,7 @@ class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
     def __init__(
         self,
         hass: HomeAssistant,
-        client: IntegrationRtl433ApiClient,
+        client: Rtl433ApiClient,
         http_host: str,
         http_port: int,
     ) -> None:

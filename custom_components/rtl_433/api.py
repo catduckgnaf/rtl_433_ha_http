@@ -128,7 +128,7 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         hass.data.setdefault(DOMAIN, {})
         hass.data[DOMAIN][entry.entry_id] = coordinator = Rtl433DataUpdateCoordinator(
             hass=hass,
-            client=IntegrationRtl433ApiClient(
+            client=Rtl433ApiClient(
                 host=entry.data[CONF_HOST],
                 port=entry.data[CONF_PORT],
                 session=async_get_clientsession(hass),
@@ -150,7 +150,7 @@ class Rtl433ApiClientCommunicationError(Rtl433ApiClientError):
 class Rtl433ApiClientAuthenticationError(Rtl433ApiClientError):
     """Exception to indicate an authentication error."""
 
-class IntegrationRtl433ApiClient:
+class Rtl433ApiClient:
     """rtl_433 http ws API Client."""
 
     def __init__(

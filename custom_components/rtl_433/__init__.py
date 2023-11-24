@@ -5,7 +5,7 @@ from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .api import IntegrationRtl433ApiClient
+from .api import Rtl433ApiClient
 from .const import DOMAIN, CONF_HOST, CONF_PORT
 from .coordinator import Rtl433DataUpdateCoordinator
 
@@ -20,7 +20,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.data.setdefault(DOMAIN, {})
     coordinator = Rtl433DataUpdateCoordinator(
         hass=hass,
-        client=IntegrationRtl433ApiClient(
+        client=Rtl433ApiClient(
             host=entry.data[CONF_HOST],
             port=entry.data[CONF_PORT],
             session=async_get_clientsession(hass),
