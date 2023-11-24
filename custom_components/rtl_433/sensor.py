@@ -1,4 +1,4 @@
-"""Sensor platform for rtl_433"""
+"""Sensor platform for rtl_433."""
 from __future__ import annotations
 import logging
 
