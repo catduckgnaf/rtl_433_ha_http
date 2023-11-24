@@ -36,19 +36,20 @@ class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
         """Update data via library."""
         try:
             # Connect to rtl_433's HTTP WebSocket API
-            for event in self.ws_events():
-                # Process each JSON event
-                self.handle_event(event)
+            # for event in self.ws_events():
+            #     # Process each JSON event
+            #     self.handle_event(event)
+            pass
 
         except ConfigEntryAuthFailed as exception:
             raise ConfigEntryAuthFailed(f"Authentication error: {exception}") from exception
         except UpdateFailed as exception:
             raise UpdateFailed(f"Communication error: {exception}") from exception
 
-    def ws_events(self):
-        """Generate JSON events from rtl_433's WebSocket API."""
-        # Implementation of ws_events (add as needed)
+    # def ws_events(self):
+    #     """Generate JSON events from rtl_433's WebSocket API."""
+    #     # Implementation of ws_events (add as needed)
 
-    def handle_event(self, line):
-        """Handle each JSON event."""
-        # Implementation of handle_event (add as needed)
+    # def handle_event(self, line):
+    #     """Handle each JSON event."""
+    #     # Implementation of handle_event (add as needed)
