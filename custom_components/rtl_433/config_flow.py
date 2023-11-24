@@ -1,4 +1,4 @@
-"""rtl_433 Home Assistant Integration config flow"""
+"""""Configuration flow for Rtl433."""
 
 from __future__ import annotations
 
