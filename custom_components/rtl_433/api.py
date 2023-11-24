@@ -2,15 +2,12 @@
 
 from __future__ import annotations
 
-import subprocess
-import sys
 import aiohttp
 import async_timeout
 import asyncio
 import socket
 import json
 import websocket
-from datetime import timedelta
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -24,7 +21,7 @@ from .api import (
     Rtl433ApiClientCommunicationError,
     Rtl433ApiClientError,
 )
-from .const import DOMAIN, LOGGER
+from .const import CONF_HOST, CONF_PORT, DOMAIN, LOGGER
 
 class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""

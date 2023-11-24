@@ -1,22 +1,11 @@
 """rtl_433 Home Assistant http API Integration."""
-
-from __future__ import annotations
-
-import subprocess
-import sys
 import aiohttp
 import async_timeout
 import asyncio
-import socket
-import json
-import websocket
-from datetime import timedelta
 
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-from homeassistant.exceptions import ConfigEntryAuthFailed
+from homeassistant import config_entries
+from homeassistant.const import CONF_HOST, CONF_PORT
+from homeassistant.helpers import aiohttp_client
 
 from .api import (
     Rtl433ApiClient,
@@ -26,7 +15,7 @@ from .api import (
 )
 from .const import DOMAIN, LOGGER
 
-class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
+class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Class to manage fetching data from the API."""
 
     config_entry: ConfigEntry
