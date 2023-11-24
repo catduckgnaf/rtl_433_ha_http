@@ -1,14 +1,13 @@
-# Import necessary modules
-import json
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from homeassistant.exceptions import ConfigEntryAuthFailed, UpdateFailed
-from custom_components.rtl_433.api import Rtl433ApiClient
+"""rtl_433 Home Assistant Integration."""
+from __future__ import annotations
+
+from datetime import timedelta
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from datetime import timedelta
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.exceptions import ConfigEntryAuthFailed
+from custom_components.rtl_433.api import Rtl433ApiClient
 import logging
-
-# Other necessary imports (add as needed)
 
 class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
@@ -21,18 +20,14 @@ class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
         client: Rtl433ApiClient,
         http_host: str,
         http_port: int,
-
-
-        LOGGER = logging.getLogger(__name__)
-
     ) -> None:
-        """Initialize."""
+        """Initialize the coordinator."""
         self.client = client
         self.http_host = http_host
         self.http_port = http_port
         super().__init__(
             hass=hass,
-            logger=LOGGER,
+            logger=logging.getLogger(__name__),  # Adjust logger as needed
             name="rtl_433",
             update_interval=timedelta(minutes=60),
         )
@@ -51,11 +46,9 @@ class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
             raise UpdateFailed(f"Communication error: {exception}") from exception
 
     def ws_events(self):
-        """Generator function to yield JSON events from rtl_433's WebSocket API."""
+        """Generate JSON events from rtl_433's WebSocket API."""
         # Implementation of ws_events (add as needed)
 
     def handle_event(self, line):
         """Handle each JSON event."""
         # Implementation of handle_event (add as needed)
-
-# Your other code (import statements, etc.) goes here

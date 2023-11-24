@@ -1,3 +1,5 @@
+"""rtl_433 Home Assistant http API Integration."""
+
 import subprocess
 import sys
 import aiohttp

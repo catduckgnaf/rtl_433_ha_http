@@ -1,3 +1,5 @@
+"""rtl_433 Home Assistant Integration."""
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST, CONF_PORT, Platform
 from homeassistant.core import HomeAssistant

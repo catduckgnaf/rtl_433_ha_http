@@ -1,3 +1,5 @@
+"""rtl_433 Home Assistant Integration config flow"""
+
 from __future__ import annotations
 
 import voluptuous as vol
