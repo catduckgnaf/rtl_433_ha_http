@@ -49,37 +49,37 @@ class IntegrationRtl433ApiClient:
             headers={"Content-type": "application/json; charset=UTF-8"},
         )
 
-    async def _api_wrapper(
-        self,
-        method: str,
-        url: str,
-        data: dict | None = None,
-        headers: dict | None = None,
-    ) -> any:
-        """Wrap API requests."""
-        try:
-            async with async_timeout.timeout(10):
-                response = await self._session.request(
-                    method=method,
-                    url=url,
-                    headers=headers,
-                    json=data,
-                )
-                if response.status in (401, 403):
-                    # Uncomment if needed in the future
-                    # raise Rtl433ApiClientAuthenticationError("Invalid credentials")
-                    response.raise_for_status()
-                return await response.json()
+async def _api_wrapper(
+    self,
+    method: str,
+    url: str,
+    data: dict | None = None,
+    headers: dict | None = None,
+) -> any:
+    """Wrap API requests."""
+    try:
+        async with async_timeout.timeout(10):
+            response = await self._session.request(
+                method=method,
+                url=url,
+                headers=headers,
+                json=data,
+            )
+            if response.status in (401, 403):
+                # Uncomment if needed in the future
+                # raise Rtl433ApiClientAuthenticationError("Invalid credentials")
+                response.raise_for_status()
+            return await response.json()
 
-        except asyncio.TimeoutError as exception:
-            raise Rtl433ApiClientCommunicationError(
-                "Timeout error fetching information",
-            ) from exception
-        except (aiohttp.ClientError, socket.gaierror) as exception:
-            raise Rtl433ApiClientCommunicationError(
-                "Error fetching information",
-            ) from exception
-        except Exception as exception:  # pylint: disable=broad-except
-            raise Rtl433ApiClientError(
-                "Something really wrong happened!",
-            ) from exception
+    except asyncio.TimeoutError as exception:
+        raise Rtl433ApiClientCommunicationError(
+            "Timeout error fetching information",
+        ) from exception
+    except (aiohttp.ClientError, socket.gaierror) as exception:
+        raise Rtl433ApiClientCommunicationError(
+            "Error fetching information",
+        ) from exception
+    except Exception as exception:  # pylint: disable=broad-except
+        raise Rtl433ApiClientError(
+            "Something really wrong happened!",
+        ) from exception
