@@ -6,6 +6,8 @@ from homeassistant.components.switch import SwitchEntity, SwitchEntityDescriptio
 from .const import DOMAIN
 from .coordinator import Rtl433DataUpdateCoordinator
 from .entity import Rtl433Entity
+import logging
+import logging
 
 ENTITY_DESCRIPTIONS = (
     SwitchEntityDescription(
@@ -45,13 +47,16 @@ class Rtl433Switch(Rtl433Entity, SwitchEntity):
         """Return true if the switch is on."""
         return self.coordinator.data.get("title", "") == "bar"
 
+    _LOGGER = logging.getLogger(__name__)
+
+
     async def async_turn_on(self, **kwargs: any) -> None:
         """Turn on the switch."""
         try:
             await self.coordinator.api.async_set_title("bar")
             await self.coordinator.async_request_refresh()
         except Exception as e:
-            _LOGGER.error(f"Error turning on the switch: {e}")
+            logging.error(f"Error turning on the switch: {e}")
 
     async def async_turn_off(self, **kwargs: any) -> None:
         """Turn off the switch."""
@@ -59,4 +64,5 @@ class Rtl433Switch(Rtl433Entity, SwitchEntity):
             await self.coordinator.api.async_set_title("foo")
             await self.coordinator.async_request_refresh()
         except Exception as e:
-            _LOGGER.error(f"Error turning off the switch: {e}")
+            logging.error(f"Error turning off the switch: {e}")
+            self._LOGGER.error(f"Error turning off the switch: {e}")
