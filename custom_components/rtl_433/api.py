@@ -1,27 +1,25 @@
-"""rtl_433 http ws API Client."""
-from __future__ import annotations
-
-import asyncio
+import subprocess
+import sys
 import aiohttp
 import async_timeout
+import asyncio
 import socket
 
+# Install aiohttp using pip if it's not already installed
+try:
+    import aiohttp
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "aiohttp"])
 
 class Rtl433ApiClientError(Exception):
-    """Exception to indicate a general API error."""
+    """Base exception for RTL_433 API Client errors."""
 
-
-class Rtl433ApiClientCommunicationError(
-    Rtl433ApiClientError
-):
+class Rtl433ApiClientCommunicationError(Rtl433ApiClientError):
     """Exception to indicate a communication error."""
 
-
-# class rtl433ApiClientAuthenticationError(
-  #  Rtl433ApiClientError
-#):
-#    """Exception to indicate an authentication error."""
-
+# Uncomment if needed in the future
+# class Rtl433ApiClientAuthenticationError(Rtl433ApiClientError):
+#     """Exception to indicate an authentication error."""
 
 class Rtl433ApiClient:
     """rtl_433 http ws API Client."""
@@ -40,14 +38,14 @@ class Rtl433ApiClient:
     async def async_get_data(self) -> any:
         """Get data from the API."""
         return await self._api_wrapper(
-            method="get", url="http://192.168.250.26:9443/ws"
+            method="get", url=f"http://{self._host}:{self._port}/ws"
         )
 
     async def async_set_title(self, value: str) -> any:
         """Get data from the API."""
         return await self._api_wrapper(
             method="patch",
-            url="http://192.168.250.26:9443/ws",
+            url=f"http://{self._host}:{self._port}/ws",
             data={"title": value},
             headers={"Content-type": "application/json; charset=UTF-8"},
         )
@@ -69,9 +67,9 @@ class Rtl433ApiClient:
                     json=data,
                 )
                 if response.status in (401, 403):
-              #      raise Rtl433ApiClientAuthenticationError(
-                        "Invalid credentials",
-                response.raise_for_status()
+                    # Uncomment if needed in the future
+                    # raise Rtl433ApiClientAuthenticationError("Invalid credentials")
+                    response.raise_for_status()
                 return await response.json()
 
         except asyncio.TimeoutError as exception:
