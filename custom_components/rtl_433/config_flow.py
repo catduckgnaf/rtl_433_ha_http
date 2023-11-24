@@ -65,7 +65,7 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                         default=9443,
                     ): selector.TextSelector(
                         selector.TextSelectorConfig(
-                            type=selector.TextSelectorType.INT
+                            type=selector.TextSelectorType.NUMBER
                         ),
                     ),
                 }
