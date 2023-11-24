@@ -5,6 +5,8 @@ from homeassistant.exceptions import ConfigEntryAuthFailed, UpdateFailed
 from custom_components.rtl_433.api import Rtl433ApiClient
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from datetime import timedelta
+import logging
 
 # Other necessary imports (add as needed)
 
@@ -19,6 +21,10 @@ class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
         client: Rtl433ApiClient,
         http_host: str,
         http_port: int,
+
+
+        LOGGER = logging.getLogger(__name__)
+
     ) -> None:
         """Initialize."""
         self.client = client
@@ -27,7 +33,7 @@ class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
         super().__init__(
             hass=hass,
             logger=LOGGER,
-            name=DOMAIN,
+            name="rtl_433",
             update_interval=timedelta(minutes=60),
         )
 
