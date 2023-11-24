@@ -56,7 +56,7 @@ class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
             raise UpdateFailed(f"API error: {exception}") from exception
 
     def ws_events(self):
-        """Generator function to yield JSON events from rtl_433's WebSocket API."""
+        """Generator function to yield JSON event from rtl_433 WebSocket API."""
         url = f'ws://{self.http_host}:{self.http_port}/ws'
         ws = websocket.WebSocket()
         ws.connect(url)
@@ -117,7 +117,7 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Handle a flow initialized by the user."""
 
         self.hass.data.setdefault(DOMAIN, {})
-        self.hass.data[DOMAIN][self.entry.entry_id] = coordinator = Rtl433DataUpdateCoordinator(
+        self.hass.data[DOMAIN][self.entry.entry_id] = Rtl433DataUpdateCoordinator(
             hass=self.hass,
             client=Rtl433ApiClient(  # Import this or define it
                 host=self.entry.data[CONF_HOST],
