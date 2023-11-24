@@ -1,4 +1,4 @@
-"""Constants for rtl_433_ha_http."""
+"""Constants for rtl_433_ha"""
 from logging import Logger, getLogger
 
 LOGGER: Logger = getLogger(__package__)

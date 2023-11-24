@@ -1,4 +1,4 @@
-"""Switch platform for rtl_433_ha_http."""
+"""Switch platform for rtl_433"""
 from __future__ import annotations
 
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription

@@ -1,4 +1,4 @@
-"""Binary sensor platform for rtl_433_ha_http."""
+"""Binary sensor platform for rtl_433"""
 from __future__ import annotations
 
 from homeassistant.components.binary_sensor import (

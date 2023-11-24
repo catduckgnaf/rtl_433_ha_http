@@ -7,6 +7,9 @@
   "config_flow": true,
   "documentation": "https://github.com/catduckgnaf/rtl_433_ha_http",
   "iot_class": "local_push",
+  "integration_type": "hub",
+  "requirements": [],
+  "dependencies": [],
   "issue_tracker": "https://github.com/catduckgnaf/rtl_433_ha_httpissues",
-  "version": "0.0.36"
+  "version": "0.0.361"
 }

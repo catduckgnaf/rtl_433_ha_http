@@ -1,4 +1,4 @@
-"""Sensor platform for rtl_433_ha_http."""
+"""Sensor platform for rtl_433"""
 from __future__ import annotations
 import logging
 
@@ -32,7 +32,7 @@ async def async_setup_entry(hass, entry, async_add_devices):
 
 
 class Rtl433Sensor(Rtl433Entity, SensorEntity):
-    """rtl_433_ha_http Sensor class."""
+    """rtl_433 Sensor class."""
 
     def __init__(
         self,
