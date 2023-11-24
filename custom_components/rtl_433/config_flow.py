@@ -8,7 +8,7 @@ from homeassistant.helpers import selector
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 
 from .api import (
-    Rtl433ApiClient,
+    IntegrationRtl433ApiClient,
     Rtl433ApiClientAuthenticationError,
     Rtl433ApiClientCommunicationError,
     Rtl433ApiClientError,
@@ -74,7 +74,7 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def _test_credentials(self, host: str, port: str) -> None:
         """Validate credentials."""
-        client = Rtl433ApiClient(
+        client = IntegrationRtl433ApiClient(
             host=host,
             port=port,
             session=async_create_clientsession(self.hass),

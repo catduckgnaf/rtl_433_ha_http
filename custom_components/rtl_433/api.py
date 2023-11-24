@@ -20,7 +20,7 @@ class Rtl433ApiClientCommunicationError(Rtl433ApiClientError):
 class Rtl433ApiClientAuthenticationError(Rtl433ApiClientError):
     """Exception to indicate an authentication error."""
 
-class Rtl433ApiClient:
+class IntegrationRtl433ApiClient:
     """rtl_433 http ws API Client."""
 
     def __init__(
