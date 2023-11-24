@@ -1,14 +1,9 @@
 """rtl_433 Home Assistant http API Integration."""
 
-import subprocess
-import sys
 import aiohttp
 import async_timeout
 import asyncio
-import socket
-
-# Install aiohttp and websocket-client using pip if they're not already installed
-subprocess.check_call([sys.executable, "-m", "pip", "install", "aiohttp", "websocket-client"])
+import websocket_client
 
 
 class Rtl433ApiClientError(Exception):
