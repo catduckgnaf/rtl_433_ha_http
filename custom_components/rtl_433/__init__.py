@@ -6,7 +6,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api import IntegrationRtl433ApiClient
-from .const import DOMAIN, CONF_HOST, CONF_PORT, LOGGER
+from .const import DOMAIN, CONF_HOST, CONF_PORT
 from .coordinator import Rtl433DataUpdateCoordinator
 
 PLATFORMS = [
