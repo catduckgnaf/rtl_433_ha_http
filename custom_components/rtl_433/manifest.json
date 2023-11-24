@@ -4,10 +4,10 @@
   "after_dependencies": [
     "mqtt"
   ],
-  "config_flow": true,
   "codeowners": [
     "@catduckgnaf"
   ],
+  "config_flow": true,
   "documentation": "https://github.com/catduckgnaf/rtl_433_ha_http",
   "dependencies": [],
   "integration_type": "hub",
