@@ -7,7 +7,6 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .const import ATTRIBUTION, DOMAIN, NAME, VERSION
 from .coordinator import Rtl433DataUpdateCoordinator
 
-
 class Rtl433Entity(CoordinatorEntity):
     """Rtl433Entity class."""
 

@@ -51,6 +51,10 @@ class Rtl433Sensor(Rtl433Entity, SensorEntity):
     async def async_update(self):
         """Update the sensor."""
         try:
-            await self.coordinator.async_request_refresh()
+            # Fetch new data here, if needed
+            # new_data = await self.coordinator.client.async_get_data()
+            # Update the native value with the new data
+            # self.coordinator.data = new_data
+            pass
         except Exception as e:
             _LOGGER.error(f"Error updating sensor: {e}")
