@@ -112,7 +112,6 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         user_input: dict | None = None,
     ) -> config_entries.FlowResult:
         """Handle a flow initialized by the user."""
-        # ... (your existing code)
 
         hass.data.setdefault(DOMAIN, {})
         hass.data[DOMAIN][entry.entry_id] = coordinator = Rtl433DataUpdateCoordinator(
@@ -126,7 +125,6 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             http_port=entry.data[CONF_PORT],  # Adjust as needed
         )
 
-        # ... (your existing code)
 
 
 class Rtl433ApiClientError(Exception):
