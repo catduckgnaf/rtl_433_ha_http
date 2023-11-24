@@ -7,7 +7,6 @@ from .const import DOMAIN
 from .coordinator import Rtl433DataUpdateCoordinator
 from .entity import Rtl433Entity
 import logging
-import logging
 
 ENTITY_DESCRIPTIONS = (
     SwitchEntityDescription(
