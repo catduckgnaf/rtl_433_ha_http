@@ -1,15 +1,15 @@
+"""config flow for rtl_433."""
 from datetime import timedelta
-import json
 import websocket
 
 from homeassistant import config_entries, core
 from homeassistant.const import CONF_HOST, CONF_PORT
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.exceptions import ConfigEntryAuthFailed
 
 from .api import Rtl433ApiClient, Rtl433ApiClientAuthenticationError, Rtl433ApiClientCommunicationError, Rtl433ApiClientError
 from .const import DOMAIN, LOGGER
+from homeassistant.helpers import vol
 
 # Define Rtl433DataUpdateCoordinator class
 class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
@@ -45,7 +45,7 @@ class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
             raise UpdateFailed(f"API error: {exception}") from exception
 
     def ws_events(self, ws):
-        """Generator function to yield JSON event from rtl_433 WebSocket API."""
+        """Generate function via websocket"""
         self.logger.info(f'Connected to {self.ws_url}')
 
         while True:
@@ -80,6 +80,7 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="user", data_schema=self.user_schema(), errors=errors
         )
+
 
     async def _validate_user_input(self, user_input):
         """Validate user input."""
