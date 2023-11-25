@@ -88,9 +88,4 @@ class Rtl433FlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         errors = []
         return errors
 
-    def user_schema(self):
-        """Return the data schema for user input."""
-        return {
-            vol.Required(CONF_HOST): str,
-            vol.Required(CONF_PORT): int,
-        }
+ 
