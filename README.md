@@ -1,9 +1,6 @@
 # RTL_433 Home Assistant HACS Integration 
 
 
-_Integration to for rtl_433 devices._
-
-
 **This integration will set up the following platforms.**
 
 Platform | Description
