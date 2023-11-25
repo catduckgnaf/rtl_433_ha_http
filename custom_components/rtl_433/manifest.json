@@ -1,6 +1,6 @@
 {
   "domain": "rtl_433",
-  "name": "RTL_433 Home Assistant Integration",
+  "name": "RTL_433",
   "after_dependencies": [
     "mqtt"
   ],
