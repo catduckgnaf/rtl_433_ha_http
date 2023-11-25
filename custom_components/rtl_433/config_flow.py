@@ -45,7 +45,7 @@ class Rtl433DataUpdateCoordinator(DataUpdateCoordinator):
             raise UpdateFailed(f"API error: {exception}") from exception
 
     def ws_events(self, ws):
-        """Generate function via websocket"""
+        """Generate function via websocket."""
         self.logger.info(f'Connected to {self.ws_url}')
 
         while True:
